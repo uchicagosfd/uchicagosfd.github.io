@@ -397,3 +397,8 @@ img.normal {
 	width: fit-content;
 }
 
+a {
+	color: black;
+	font-style: normal;
+	text-decoration-line: none;
+}
