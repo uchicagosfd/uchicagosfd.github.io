@@ -384,6 +384,7 @@ img.normal {
 .but {
 	cursor: pointer;
 	transition: background-color 0.2s;
+	user-select: none;
 }
 
 .but:hover {
