@@ -71,7 +71,7 @@ h2 {
 	user-select: none;
 }
 
-.title {
+#title {
 	width: 300px;
 }
 
@@ -172,11 +172,6 @@ img.normal {
 	padding: 0px;
 }
 
-.section.full-img.start {
-	overflow-x: visible;
-	margin-left: -10px;
-}
-
 .section.blue {
 	background-color: var(--c-blue);  
 	color: white;
@@ -210,6 +205,7 @@ img.normal {
 }
 
 .standard {
+	justify-self: center;
 }
 
 .subtext {
@@ -406,40 +402,127 @@ a {
 /* Mobile  */
 @media screen and (max-width: 600px) {
 
-	#menu {
-		display: none;
-	}
-
-	.menubar {
-		display: none;
-	}
-
-    .section-container {
+    #menu {
+        width: 40vw;
+		max-width: 100vw;
         height: 100vh;
-		width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 30vw;
+        z-index: 1000;
 		display: flex;
-		height: 100vh;
-		overflow-x: auto;
-		overflow-y: hidden;
-		-webkit-overflow-scrolling: touch;
-		scroll-snap-type: x mandatory;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
     }
+
+	#menu-logo {
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
 		
-	.section {
-		height: 100vh;
-		width: 100vw;
-		padding: 50px 60px;
+	.menubar {
+		margin-top: 15vw;
+		margin-bottom: auto;
+		text-align: center;
 	}
 
+	.section-container {
+    	touch-action: pan-x;
+		-webkit-overflow-scrolling: touch;
+		margin-left: 30vw;
+		width: fit-content;
+	}
+
+	.section {
+        scroll-behavior: smooth;
+		width: 100vw;
+		height: 100dvh;
+		padding: 20vw;
+		overflow-x: hidden;
+	}
+
+	#contact {
+		width: fit-content;
+	}
+
+	.section.full-img {
+		width: auto;
+	}
+
+	.section.small {
+		width: calc(100vw - 41px + 1px)
+	}
+
+	.backer {
+		height: 100vh;
+	}
+
+	h1, h2, h3, p {
+		max-width: 60vw;
+	}
+
+	.normal {
+        display: block;
+		height: auto;
+		width: auto; 
+		max-width: 60vw;
+		max-height: none;
+		object-fit: contain;
+		align-self: flex-start;
+	}
+
+	h1 {
+		padding: 0vh 0px 5vh;
+	}
+	
 	p {
 		font-size: clamp(12px, 14px, 16px);
 	}
 
-    body {
-        overscroll-behavior-y: contain;
-    }	
+	body {
+        overscroll-behavior-x: contain;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: manipulation;
+    }
 
+    .menuitem,
+    .buy,
+    .but {
+        touch-action: manipulation;
+    }
+		
+	#title {
+		width: 20vw;
+		font-size: clamp(7vw, 9.5vw, 10vw)
+	}
 
+	#team {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center; 
+		text-align: center;
+		padding: 5vw 5vw;
+	}
 
+	.header {
+		padding: 0px 0px 6vh;
+	}
+
+	#team .standard,
+	#team .subtext {
+		margin: 0;
+		padding: 0;
+	}
+
+	#team .subtext {
+		margin-bottom: 20px; /* spacing between people */
+	}
 
 }
