@@ -113,7 +113,7 @@ if (isMobile) {
   const maxScroll = menu.offsetWidth;
 
   let menuActive = false;
-  let menuOpen = false;
+  let menuOpen = true;
 
   menu.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
