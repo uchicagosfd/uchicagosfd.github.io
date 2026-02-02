@@ -13,8 +13,8 @@
 </head>
 	
 <body>
-	<div id="menu">
-		<img id="menu-logo" src="files/UchicagoSFDLogo.png">
+	<header id="menu">
+		<img onclick="scrollToSection('intro-img')" id="menu-logo" src="files/UchicagoSFDLogo.png">
 		<div class="menubar">
 			<div onclick="scrollToSection('intro-img')" class="menuitem">HOME</div>
 			<div onclick="scrollToSection('about')" class="menuitem">ABOUT</div>
@@ -24,16 +24,16 @@
 			<div onclick="scrollToSection('contact')" class="menuitem">CONTACT</div>
 			<div onclick="scrollToSection('footer')" class="menuitem">RESOURCES</div>
 			</div>
-		</div>
+		</header>
 	
 	<div class="section-container">
 		<div class="section full-img start" id="intro-img">
-			<img src="files/ReynoldsVertical.jpg">
+			<img class="backer" src="files/ReynoldsVertical.jpg">
 		</div>
 		
 		<div class="section" id="intro">
 			<h1>Supplies for Dreams</h1>
-			<h2 class="title">University of Chicago Chapter</h2>
+			<h2 id="title">University of Chicago Chapter</h2>
 			<h3>At Supplies For Dreams, we connect students in the Chicago Public School system with 
 				college mentors and resources that expand their horizons. Through weekly mentorship, 
 				field trips, and scholarship resources, we help to foster confidence and curiosity 
@@ -60,7 +60,7 @@
 			<p class="subtitle">The majority of students we mentor participiate in economic assistance programs such as free or reduced lunch. Over 80% are Hispanic.
 				Data from CPS.edu.
 			</p>
-			<img class="normal" src="files/TalcottStatistics.jpg"></img>
+			<img class="normal" src="files/TalcottStatistics.jpg">
 		</div>
 		
 		<div class="section blue small middle" id="team">
@@ -90,7 +90,7 @@
 			<form class="contactframe" method="post" action="https://formsubmit.co/3bc920515f04a3b389ccee1080854dbd">
 				<div class="contactform">
 					<h5 id="emaillabel" class="clabel cpiece">Email:</h5>
-					<input type="text" name="email" id="emailinput" class="cinput cpiece" placeholder="(Optional unless expecting a response) . . .">
+					<input type="email" name="email" id="emailinput" class="cinput cpiece" placeholder="(Optional unless expecting a response) . . .">
 					<h5 id="subjectlabel" class="clabel cpiece">Subject:</h5>
 					<input type="text" name="subject" id="subjectinput" class="cinput cpiece" placeholder="(Optional) . . .">
 					<h5 id="messagelabel" class="clabel cpiece">Write your message below:</h5>
