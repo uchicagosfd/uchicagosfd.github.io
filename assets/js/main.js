@@ -1,3 +1,11 @@
+window.addEventListener("load", () => {
+  if (window.location.hash) {
+    document
+      .querySelector(window.location.hash)
+      ?.scrollIntoView({ behavior: "smooth" });
+  }
+});
+
 const container = document.querySelector('.section-container');
 
 let scrollAmount = 0;
