@@ -101,7 +101,9 @@ function scrollToSection(id) {
 }
 
 // Detect if we are on mobile
-const isMobile = window.matchMedia("(max-width: 600px)").matches;
+const isMobile = window.matchMedia("(max-width: 600px)").matches &&
+  navigator.maxTouchPoints > 0 &&
+  window.matchMedia('(pointer: coarse)').matches;;
 
 if (isMobile) {
   document.getElementById('title').innerHTML = 'UChicago Chapter';
