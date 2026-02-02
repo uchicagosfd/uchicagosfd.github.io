@@ -139,7 +139,7 @@ if (isMobile) {
   menu.addEventListener('touchend', () => {
     menuActive = false;
 
-    if (scrollAmount > maxScroll / 2) {
+    if (scrollAmount > maxScroll / 3) {
       scrollAmount = maxScroll;
       menuOpen = true;
     } else {
