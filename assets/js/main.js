@@ -5,12 +5,21 @@ window.addEventListener("load", () => {
       ?.scrollIntoView({ behavior: "smooth" });
   }
 });
+  
+// Detect if mobile
+const isMobile = window.matchMedia("(max-width: 600px)").matches &&
+  navigator.maxTouchPoints > 0 &&
+  window.matchMedia('(pointer: coarse)').matches;
 
+const menu = document.getElementById('menu');
 const container = document.querySelector('.section-container');
+const maxScroll = menu.offsetWidth;
 
 let scrollAmount = 0;
 let currentScroll = 0;
 let isScrolling = false;
+let menuActive = false;
+let menuOpen = true;
 
 window.addEventListener(
   "wheel",
@@ -44,86 +53,95 @@ let transAmount = 0;
 let currentTrans = 0;
 let isTrans = false;
 
-function smoothTranslate() {
-  isTrans = true;
+function smoothTranslate(speed) {
 
-  currentTrans += (transAmount - currentTrans) * 0.2;
+  currentTrans += (transAmount - currentTrans) * speed;
 
-  container.style.transform = `translateX(${-currentTrans - (menu.offsetWidth * 0.3)}px)`;
+  container.style.transform =
+    `translateX(${-currentTrans - menu.offsetWidth * 0.3}px)`;
 
   if (Math.abs(transAmount - currentTrans) > 0.5) {
-    requestAnimationFrame(smoothTranslate);
+    requestAnimationFrame(() => smoothTranslate(speed));
   } else {
+    currentTrans = transAmount;
     isTrans = false;
   }
 }
 
 
 function scrollToSection(id) {
-  const container = document.querySelector('.section-container');
   const element = document.getElementById(id);
   if (!container || !element) return;
 
-  const menuWidth = document.getElementById('menu').offsetWidth;
-
-  let target;
-  if (id === "intro-img") {
-    target = element.offsetLeft - menuWidth;
-  } else {
-    target = element.offsetLeft - menuWidth - 20;
-  }
-
-  const start = container.scrollLeft;
-  const distance = Math.abs(target - start);
-
-  const minDuration = 200; 
-  const maxDuration = 1200; 
-  const pixelsPerMs = 1; 
-  let duration = distance / pixelsPerMs;
-
-  duration = Math.max(minDuration, Math.min(maxDuration, duration));
-
-  let startTime = null;
-
-  function easeInOutQuad(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
-
-  function animateScroll(time) {
-    if (!startTime) startTime = time;
-    const elapsed = time - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = easeInOutQuad(progress);
-
-    container.scrollLeft = start + (target - start) * eased;
-
-    if (elapsed < duration) {
-      requestAnimationFrame(animateScroll);
-    } else {
-      scrollAmount = container.scrollLeft;
-      currentScroll = container.scrollLeft;
+  if (isMobile) {
+    if (element.classList.contains('small')) {
+      currentTrans = currentTrans + 20;
     }
+
+    transAmount = element.offsetLeft - currentTrans;
+
+    menu.style.transition = 'transform 1s ease';
+    container.style.transition = 'transform 0s';
+
+    menu.style.transform = `translateX(${-maxScroll}px)`;
+    menuActive = false;
+
+    smoothTranslate(0.05);
   }
 
-  requestAnimationFrame(animateScroll);
+  else {
+    const menuWidth = document.getElementById('menu').offsetWidth;
+
+    let target;
+    if (id === "intro-img") {
+      target = element.offsetLeft - menuWidth;
+    } else {
+      target = element.offsetLeft - menuWidth - 20;
+    }
+
+    const start = container.scrollLeft;
+    const distance = Math.abs(target - start);
+
+    const minDuration = 200; 
+    const maxDuration = 1200; 
+    const pixelsPerMs = 1; 
+    let duration = distance / pixelsPerMs;
+
+    duration = Math.max(minDuration, Math.min(maxDuration, duration));
+
+    let startTime = null;
+
+    function easeInOutQuad(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function animateScroll(time) {
+      if (!startTime) startTime = time;
+      const elapsed = time - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeInOutQuad(progress);
+
+      container.scrollLeft = start + (target - start) * eased;
+
+      if (elapsed < duration) {
+        requestAnimationFrame(animateScroll);
+      } else {
+        scrollAmount = container.scrollLeft;
+        currentScroll = container.scrollLeft;
+      }
+    }
+
+    requestAnimationFrame(animateScroll);
+  }
 }
 
-// Detect if we are on mobile
-const isMobile = window.matchMedia("(max-width: 600px)").matches &&
-  navigator.maxTouchPoints > 0 &&
-  window.matchMedia('(pointer: coarse)').matches;;
 
 if (isMobile) {
   document.getElementById('title').innerHTML = 'UChicago Chapter';
-  const menu = document.getElementById('menu');
-  const container = document.querySelector('.section-container');
 
   let startX = 0;
   let scrollStart = 0;
-  const maxScroll = menu.offsetWidth;
 
-  let menuActive = false;
-  let menuOpen = true;
 
   menu.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
@@ -189,10 +207,9 @@ if (isMobile) {
     const maxTrans = calc(container.scrollWidth - 100);
     transAmount = Math.min(maxTrans, Math.max(minTrans, transAmount));
 
-    if (!isTrans) smoothTranslate();
+    if (!isTrans) smoothTranslate(0.2);
 
     e.preventDefault();
   }, { passive: false });
-
 
 }
